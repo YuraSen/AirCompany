@@ -3,17 +3,21 @@ package ua.mycompany.controller;
 import ua.mycompany.model.*;
 import ua.mycompany.util.localization.UTF8Control;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
 public class Controller {
-    private static ResourceBundle lang;
-    private static Scanner in = new Scanner(System.in);
-    private static AirCompany aircompany;
+    private ResourceBundle lang;
+    private Scanner in = new Scanner(System.in);
+    private AirCompany aircompany;
 
-    private static void init() {
+    public Controller(AirCompany aircompany) {
+        this.aircompany = aircompany;
+    }
+
+    public void processUser() {
         aircompany = new AirCompany();
         BusinessPlane businessPlane = new BusinessPlane(1000, 5, 40, 800);
         CargoPlane cargoPlane = new CargoPlane(2000, 2, 200, 1000);
@@ -21,14 +25,10 @@ public class Controller {
         aircompany.add(businessPlane);
         aircompany.add(cargoPlane);
         aircompany.add(passengerPlane);
-    }
-
-    public static void main(String[] args) {
-        init();
         chooseMenuLang();
     }
 
-    private static void chooseMenuLang() {
+    private void chooseMenuLang() {
         System.out.println("\nChoose language/Оберіть мову");
         System.out.println("English (1)");
         System.out.println("Українська (2)");
@@ -36,25 +36,18 @@ public class Controller {
         chooseLang(chooseLanguage);
     }
 
-    private static void chooseLang(int chooseLanguage) {
-
-        try {
-            if (chooseLanguage == 1) {
-                lang = ResourceBundle.getBundle("resources", new Locale("en"), new UTF8Control());
-            } else if (chooseLanguage == 2) {
-                lang = ResourceBundle.getBundle("resources", new Locale("ua"), new UTF8Control());
-            } else
-                chooseMenuLang();
-        } catch (Exception e) {
-            System.out.println(lang.getString("uncorrectedArgument"));
-            chooseLang(chooseLanguage);
-        }
-
+    private void chooseLang(int chooseLanguage) {
+        if (chooseLanguage == 1) {
+            lang = ResourceBundle.getBundle("resources", new Locale("en"), new UTF8Control());
+        } else if (chooseLanguage == 2) {
+            lang = ResourceBundle.getBundle("resources", new Locale("ua"), new UTF8Control());
+        } else
+            chooseMenuLang();
         menu();
     }
 
 
-    private static void printPlanes(ArrayList<Plane> planes) {
+    private void printPlanes(List<Plane> planes) {
         if (planes.isEmpty()) {
             System.out.println(lang.getString("noPlane"));
         } else {
@@ -67,7 +60,7 @@ public class Controller {
         }
     }
 
-    private static void menu() {
+    private void menu() {
         System.out.println(lang.getString("menu"));
         System.out.println("1 - " + lang.getString("viewAllPlanes"));
         System.out.println("2 - " + lang.getString("sortByDistance"));
@@ -95,7 +88,7 @@ public class Controller {
                 System.out.println("Sum capacity = " + aircompany.sumOfCapacity());
                 break;
             case 4:
-                System.out.println("Sum carrying = " + aircompany.sumOfCarring());
+                System.out.println("Sum carrying = " + aircompany.sumOfCarrying());
                 break;
             case 5:
                 printPlanes(aircompany.searchElementByFuel(700, 950));

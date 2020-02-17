@@ -1,7 +1,5 @@
 package ua.mycompany.model;
 
-import java.util.Objects;
-
 public abstract class Plane implements Comparable<Plane> {
 
     protected final double distance;
@@ -30,22 +28,6 @@ public abstract class Plane implements Comparable<Plane> {
 
     public double getCarrying() {
         return carrying;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Plane plane = (Plane) o;
-        return Double.compare(plane.distance, distance) == 0 &&
-                Double.compare(plane.capacity, capacity) == 0 &&
-                Double.compare(plane.carrying, carrying) == 0 &&
-                Double.compare(plane.stockOfFuel, stockOfFuel) == 0;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(distance, capacity, carrying, stockOfFuel);
     }
 
     @Override

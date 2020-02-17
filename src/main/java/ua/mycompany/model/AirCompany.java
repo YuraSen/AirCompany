@@ -2,15 +2,16 @@ package ua.mycompany.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class AirCompany {
-    private ArrayList<Plane> planes;
+    private List<Plane> planes;
 
     public AirCompany() {
         planes = new ArrayList<>();
     }
 
-    public ArrayList<Plane> getPlanes() {
+    public List<Plane> getPlanes() {
         return planes;
     }
 
@@ -18,7 +19,7 @@ public class AirCompany {
         planes.add(plane);
     }
 
-    public ArrayList<Plane> sortByDistance() {
+    public List<Plane> sortByDistance() {
         Collections.sort(planes);
         return planes;
     }
@@ -31,16 +32,16 @@ public class AirCompany {
         return sum;
     }
 
-    public double sumOfCarring() {
+    public double sumOfCarrying() {
         double sum = 0;
         for (Plane element : planes) {
-            sum += element.getCapacity();
+            sum += element.getCarrying();
         }
         return sum;
     }
 
-    public ArrayList<Plane> searchElementByFuel(double startRange, double endRange) {
-        ArrayList<Plane> searchElementFuel = new ArrayList<>();
+    public List<Plane> searchElementByFuel(double startRange, double endRange) {
+        List<Plane> searchElementFuel = new ArrayList<>();
         for (Plane element : planes) {
             if (element.getStockOfFuel() > startRange && element.getStockOfFuel() < endRange) {
                 searchElementFuel.add(element);
