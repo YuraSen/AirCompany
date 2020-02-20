@@ -3,9 +3,9 @@ package ua.mycompany.model.airport;
 import ua.mycompany.model.CargoPlane;
 import ua.mycompany.model.PassengerPlane;
 import ua.mycompany.model.Plane;
+import ua.mycompany.util.sort.BubbleSort;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class AirCompany {
@@ -38,7 +38,8 @@ public class AirCompany {
     }
 
     public List<Plane> sortByDistance() {
-        Collections.sort(planes);
+        BubbleSort.sort(planes);
+        //Collections.sort(planes);
         return planes;
     }
 
@@ -52,11 +53,11 @@ public class AirCompany {
         return searchElementFuel;
     }
 
-    public double sumOfCarryingCargoPlane(){
+    public double sumOfCarryingCargoPlane() {
         return cargoUnit.sumOfCarrying();
     }
 
-    public double sumOfCapacityPassengerPlane(){
+    public double sumOfCapacityPassengerPlane() {
         return passengerUnit.sumOfCapacity();
     }
 
