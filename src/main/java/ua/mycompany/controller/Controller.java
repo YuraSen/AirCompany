@@ -1,6 +1,7 @@
 package ua.mycompany.controller;
 
 import ua.mycompany.model.*;
+import ua.mycompany.model.airport.AirCompany;
 import ua.mycompany.util.localization.UTF8Control;
 
 import java.util.List;
@@ -19,12 +20,12 @@ public class Controller {
 
     public void processUser() {
         aircompany = new AirCompany();
-        BusinessPlane businessPlane = new BusinessPlane(1000, 5, 40, 800);
-        CargoPlane cargoPlane = new CargoPlane(2000, 2, 200, 1000);
-        PassengerPlane passengerPlane = new PassengerPlane(1500, 50, 30, 900);
-        aircompany.add(businessPlane);
-        aircompany.add(cargoPlane);
-        aircompany.add(passengerPlane);
+        CargoPlane cargoPlane = new CargoPlane(2000, 200, 1000);
+        CargoPlane cargoPlane2 = new CargoPlane(2300, 200, 12);
+        PassengerPlane passengerPlane = new PassengerPlane(1500, 30, 900);
+        aircompany.addCargoPlanes(cargoPlane);
+        aircompany.addCargoPlanes(cargoPlane2);
+        aircompany.addPassengerPlanes(passengerPlane);
         chooseMenuLang();
     }
 
@@ -85,13 +86,13 @@ public class Controller {
                 printPlanes(aircompany.sortByDistance());
                 break;
             case 3:
-                System.out.println("Sum capacity = " + aircompany.sumOfCapacity());
+                System.out.println("Sum capacity = " + aircompany.sumOfCapacityPassengerPlane());
                 break;
             case 4:
-                System.out.println("Sum carrying = " + aircompany.sumOfCarrying());
+                System.out.println("Sum carrying = " + aircompany.sumOfCarryingCargoPlane());
                 break;
             case 5:
-                printPlanes(aircompany.searchElementByFuel(700, 950));
+                printPlanes(aircompany.searchElementByFuel(100, 950));
                 break;
             case 6:
                 chooseMenuLang();

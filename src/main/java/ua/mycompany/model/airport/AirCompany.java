@@ -1,4 +1,8 @@
-package ua.mycompany.model;
+package ua.mycompany.model.airport;
+
+import ua.mycompany.model.CargoPlane;
+import ua.mycompany.model.PassengerPlane;
+import ua.mycompany.model.Plane;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,38 +10,36 @@ import java.util.List;
 
 public class AirCompany {
     private List<Plane> planes;
+    private CargoUnit cargoUnit;
+    private PassengerUnit passengerUnit;
 
     public AirCompany() {
         planes = new ArrayList<>();
+        cargoUnit = new CargoUnit();
+        passengerUnit = new PassengerUnit();
     }
 
     public List<Plane> getPlanes() {
         return planes;
     }
 
-    public void add(Plane plane) {
+    public void addPassengerPlanes(PassengerPlane passengerPlane) {
+        passengerUnit.addPassengerPlanes(passengerPlane);
+        add(passengerPlane);
+    }
+
+    public void addCargoPlanes(CargoPlane cargoPlane) {
+        cargoUnit.addCargoPlanes(cargoPlane);
+        add(cargoPlane);
+    }
+
+    private void add(Plane plane) {
         planes.add(plane);
     }
 
     public List<Plane> sortByDistance() {
         Collections.sort(planes);
         return planes;
-    }
-
-    public double sumOfCapacity() {
-        double sum = 0;
-        for (Plane element : planes) {
-            sum += element.getCapacity();
-        }
-        return sum;
-    }
-
-    public double sumOfCarrying() {
-        double sum = 0;
-        for (Plane element : planes) {
-            sum += element.getCarrying();
-        }
-        return sum;
     }
 
     public List<Plane> searchElementByFuel(double startRange, double endRange) {
@@ -48,6 +50,14 @@ public class AirCompany {
             }
         }
         return searchElementFuel;
+    }
+
+    public double sumOfCarryingCargoPlane(){
+        return cargoUnit.sumOfCarrying();
+    }
+
+    public double sumOfCapacityPassengerPlane(){
+        return passengerUnit.sumOfCapacity();
     }
 
     @Override
