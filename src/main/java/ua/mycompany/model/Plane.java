@@ -14,7 +14,6 @@ public abstract class Plane implements Comparable<Plane> {
         return distance;
     }
 
-
     public double getStockOfFuel() {
         return stockOfFuel;
     }
