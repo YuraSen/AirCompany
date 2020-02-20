@@ -15,10 +15,9 @@ public class PassengerPlane extends Plane {
 
     @Override
     public String toString() {
-        return "PassengerPlane{" +
+        return "PassengerPlane: " +
                 "distance=" + distance +
-                ", capacity=" + capacity +
                 ", stockOfFuel=" + stockOfFuel +
-                '}';
+                ", capacity=" + capacity;
     }
 }

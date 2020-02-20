@@ -3,6 +3,7 @@ package ua.mycompany.controller;
 import ua.mycompany.model.*;
 import ua.mycompany.model.airport.AirCompany;
 import ua.mycompany.util.localization.UTF8Control;
+import ua.mycompany.view.Constant;
 
 import java.util.List;
 import java.util.Locale;
@@ -19,13 +20,7 @@ public class Controller {
     }
 
     public void processUser() {
-        aircompany = new AirCompany();
-        CargoPlane cargoPlane = new CargoPlane(2000, 200, 1000);
-        CargoPlane cargoPlane2 = new CargoPlane(2300, 200, 12);
-        PassengerPlane passengerPlane = new PassengerPlane(1500, 30, 900);
-        aircompany.addCargoPlanes(cargoPlane);
-        aircompany.addCargoPlanes(cargoPlane2);
-        aircompany.addPassengerPlanes(passengerPlane);
+        aircompany = InitData.initAirCompany(Constant.FILE_NAME_PASSENGER, Constant.FILE_NAME_CARGO);
         chooseMenuLang();
     }
 
@@ -92,7 +87,7 @@ public class Controller {
                 System.out.println("Sum carrying = " + aircompany.sumOfCarryingCargoPlane());
                 break;
             case 5:
-                printPlanes(aircompany.searchElementByFuel(100, 950));
+                printPlanes(aircompany.searchElementByFuel(450, 550));
                 break;
             case 6:
                 chooseMenuLang();

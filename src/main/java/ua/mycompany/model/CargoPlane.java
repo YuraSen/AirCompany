@@ -15,10 +15,11 @@ public class CargoPlane extends Plane {
 
     @Override
     public String toString() {
-        return "CargoPlane{" +
+        return "CargoPlane: " +
                 "distance=" + distance +
-                ", carrying=" + carrying +
                 ", stockOfFuel=" + stockOfFuel +
-                '}';
+                ", carrying=" + carrying;
+
+
     }
 }
