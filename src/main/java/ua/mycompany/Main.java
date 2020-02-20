@@ -1,12 +1,10 @@
 package ua.mycompany;
 
 import ua.mycompany.controller.Controller;
-import ua.mycompany.model.AirCompany;
 
 public class Main {
     public static void main(String[] args) {
-        AirCompany airCompany = new AirCompany();
-        Controller controller = new Controller(airCompany);
+        Controller controller = new Controller();
         controller.processUser();
     }
 }

@@ -2,17 +2,22 @@ package ua.mycompany.model;
 
 public class PassengerPlane extends Plane {
 
-    public PassengerPlane(double distance, double capacity, double carrying, double stockOfFuel) {
-        super(distance, capacity, carrying, stockOfFuel);
+    private final double capacity;
+
+    public PassengerPlane(double distance, double stockOfFuel, double capacity) {
+        super(distance, stockOfFuel);
+        this.capacity = capacity;
+    }
+
+    public double getCapacity() {
+        return capacity;
     }
 
     @Override
     public String toString() {
-        return "PassengerPlane{" +
+        return "PassengerPlane: " +
                 "distance=" + distance +
-                ", capacity=" + capacity +
-                ", carrying=" + carrying +
                 ", stockOfFuel=" + stockOfFuel +
-                '}';
+                ", capacity=" + capacity;
     }
 }

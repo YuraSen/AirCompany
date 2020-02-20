@@ -1,9 +1,10 @@
 package ua.mycompany.controller;
 
-import ua.mycompany.model.*;
-import ua.mycompany.util.localization.UTF8Control;
+import ua.mycompany.model.airport.AirCompany;
+import ua.mycompany.util.localization.Localization;
+import ua.mycompany.view.Constant;
+import ua.mycompany.view.View;
 
-import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Scanner;
@@ -12,64 +13,35 @@ public class Controller {
     private ResourceBundle lang;
     private Scanner in = new Scanner(System.in);
     private AirCompany aircompany;
+    private View view;
 
-    public Controller(AirCompany aircompany) {
-        this.aircompany = aircompany;
+    public Controller() {
+        view = new View();
     }
 
     public void processUser() {
-        aircompany = new AirCompany();
-        BusinessPlane businessPlane = new BusinessPlane(1000, 5, 40, 800);
-        CargoPlane cargoPlane = new CargoPlane(2000, 2, 200, 1000);
-        PassengerPlane passengerPlane = new PassengerPlane(1500, 50, 30, 900);
-        aircompany.add(businessPlane);
-        aircompany.add(cargoPlane);
-        aircompany.add(passengerPlane);
+        aircompany = InitData.initAirCompany(Constant.FILE_NAME_PASSENGER, Constant.FILE_NAME_CARGO);
         chooseMenuLang();
     }
 
     private void chooseMenuLang() {
-        System.out.println("\nChoose language/Оберіть мову");
-        System.out.println("English (1)");
-        System.out.println("Українська (2)");
+        view.chooseMenuLang();
         int chooseLanguage = in.nextInt();
         chooseLang(chooseLanguage);
     }
 
     private void chooseLang(int chooseLanguage) {
         if (chooseLanguage == 1) {
-            lang = ResourceBundle.getBundle("resources", new Locale("en"), new UTF8Control());
+            lang = ResourceBundle.getBundle("resources", new Locale("en"), new Localization());
         } else if (chooseLanguage == 2) {
-            lang = ResourceBundle.getBundle("resources", new Locale("ua"), new UTF8Control());
+            lang = ResourceBundle.getBundle("resources", new Locale("ua"), new Localization());
         } else
             chooseMenuLang();
         menu();
     }
 
-
-    private void printPlanes(List<Plane> planes) {
-        if (planes.isEmpty()) {
-            System.out.println(lang.getString("noPlane"));
-        } else {
-            System.out.println("\n" + lang.getString("listPlane"));
-            for (Plane plane : planes
-            ) {
-                System.out.println(plane);
-            }
-            System.out.println();
-        }
-    }
-
     private void menu() {
-        System.out.println(lang.getString("menu"));
-        System.out.println("1 - " + lang.getString("viewAllPlanes"));
-        System.out.println("2 - " + lang.getString("sortByDistance"));
-        System.out.println("3 - " + lang.getString("sumCapacity"));
-        System.out.println("4 - " + lang.getString("sumCarrying"));
-        System.out.println("5 - " + lang.getString("rangeFuel"));
-        System.out.println("6 - " + lang.getString("chooseLanguage"));
-        System.out.println("7 - " + lang.getString("exit"));
-
+        view.printMenu(lang);
         int choice;
         try {
             choice = in.nextInt();
@@ -79,19 +51,19 @@ public class Controller {
 
         switch (choice) {
             case 1:
-                printPlanes(aircompany.getPlanes());
+                view.printPlanes(aircompany.getPlanes(), lang);
                 break;
             case 2:
-                printPlanes(aircompany.sortByDistance());
+                view.printPlanes(aircompany.sortByDistance(), lang);
                 break;
             case 3:
-                System.out.println("Sum capacity = " + aircompany.sumOfCapacity());
+                view.printSumCapacity(aircompany, lang);
                 break;
             case 4:
-                System.out.println("Sum carrying = " + aircompany.sumOfCarrying());
+                view.printSumCarrying(aircompany, lang);
                 break;
             case 5:
-                printPlanes(aircompany.searchElementByFuel(700, 950));
+                view.printPlanes(aircompany.searchElementByFuel(450, 550), lang);
                 break;
             case 6:
                 chooseMenuLang();
